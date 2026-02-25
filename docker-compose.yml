@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  weather-api:
+    build: .
+    ports:
+      - "8000:8000"
+    container_name: weather-api-backend
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    # Optional: Add volume for live development
+    # volumes:
+    #   - .:/app
