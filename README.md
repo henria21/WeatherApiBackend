@@ -122,22 +122,22 @@ python weather_app.py
 
 You should see output indicating the server is running:
 ```
-INFO:     Uvicorn running on http://127.0.0.1:8000
+INFO:     Uvicorn running on http://127.0.0.1:5000
 ```
 
 3. **Access the API:**
-   - **Base URL:** `http://127.0.0.1:8000`
-   - **Interactive Docs (Swagger UI):** `http://127.0.0.1:8000/docs`
-   - **Alternative Docs (ReDoc):** `http://127.0.0.1:8000/redoc`
+   - **Base URL:** `http://127.0.0.1:5000`
+   - **Interactive Docs (Swagger UI):** `http://127.0.0.1:5000/docs`
+   - **Alternative Docs (ReDoc):** `http://127.0.0.1:5000/redoc`
 
 4. **Test the API:**
 
 ```bash
 # Basic weather request
-curl "http://127.0.0.1:8000/weather?location=London"
+curl "http://127.0.0.1:5000/weather?location=London"
 
 # With extra data (humidity and wind speed)
-curl "http://127.0.0.1:8000/weather?location=London&include_extra=true"
+curl "http://127.0.0.1:5000/weather?location=London&include_extra=true"
 ```
 
 ## API Usage
@@ -159,7 +159,7 @@ GET /weather
 
 **Basic weather information:**
 ```
-GET http://127.0.0.1:8000/weather?location=Paris
+GET http://127.0.0.1:5000/weather?location=Paris
 ```
 
 **Response:**
@@ -173,7 +173,7 @@ GET http://127.0.0.1:8000/weather?location=Paris
 
 **With humidity and wind speed:**
 ```
-GET http://127.0.0.1:8000/weather?location=Paris&include_extra=true
+GET http://127.0.0.1:5000/weather?location=Paris&include_extra=true
 ```
 
 **Response:**
@@ -200,7 +200,7 @@ GET http://127.0.0.1:8000/weather?location=Paris&include_extra=true
 
 ```bash
 docker build -t weather-api-backend .
-docker run -p 8000:8000 weather-api-backend
+docker run -p 5000:5000 weather-api-backend
 ```
 
 ### Using Docker Compose
@@ -209,7 +209,7 @@ docker run -p 8000:8000 weather-api-backend
 docker-compose up
 ```
 
-The API will be available at `http://localhost:8000`
+The API will be available at `http://localhost:5000`
 
 ## Project Structure
 
@@ -241,8 +241,8 @@ WeatherApiBackend/
 - Try using the city name without special characters
 
 **Issue: Connection refused**
-- Verify the application is running on port 8000
-- Check if another application is using port 8000
+- Verify the application is running on port 5000
+- Check if another application is using port 5000
 - Try a different port by modifying `weather_app.py`
 
 ## License

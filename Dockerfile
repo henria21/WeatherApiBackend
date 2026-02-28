@@ -1,23 +1,21 @@
-# Use official Python runtime as base image
+# Base Python image
 FROM python:3.11-slim
 
-# Set working directory in container
+# Set working directory
 WORKDIR /app
 
-# Copy requirements first for better caching
-COPY requirements.txt .
-
 # Install dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
+# Copy backend code
 COPY weather_app.py .
 
-# Expose port
-EXPOSE 8000
-
-# Set environment variables
+# Set environment variable for API key (overwrite at runtime with -e or .env)
 ENV PYTHONUNBUFFERED=1
 
-# Run application - bind to 0.0.0.0 for Docker
-CMD ["uvicorn", "weather_app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Expose port 5000
+EXPOSE 5000
+
+# Run server
+CMD ["python", "weather_app.py"]
