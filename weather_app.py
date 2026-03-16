@@ -1,6 +1,6 @@
 import os
 from fastapi import FastAPI, HTTPException, Query
-import requests
+import httpx
 
 app = FastAPI(title="Weather Proxy API")
 
@@ -26,7 +26,8 @@ async def get_weather(
     }
 
     try:
-        response = requests.get(BASE_URL, params=params)
+        async with httpx.AsyncClient() as client:
+            response = await client.get(BASE_URL, params=params)
         data = response.json()
 
         if response.status_code != 200:
@@ -44,7 +45,7 @@ async def get_weather(
 
         return weather_report
 
-    except requests.exceptions.RequestException:
+    except httpx.RequestError:
         raise HTTPException(status_code=503, detail="Weather service unavailable")
 
 if __name__ == "__main__":

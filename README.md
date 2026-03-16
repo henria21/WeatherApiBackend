@@ -53,7 +53,7 @@ pip list
 You should see:
 - fastapi==0.104.1
 - uvicorn==0.24.0
-- requests==2.31.0
+- httpx==0.25.2
 
 ## API Key Setup
 
@@ -227,7 +227,7 @@ WeatherApiBackend/
 
 - **FastAPI** - Modern web framework for building APIs
 - **Uvicorn** - ASGI web server for running FastAPI
-- **Requests** - HTTP library for making API calls to OpenWeatherMap
+- **HTTPX** - Async HTTP library for making API calls to OpenWeatherMap
 
 ## Troubleshooting
 
