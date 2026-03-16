@@ -5,11 +5,9 @@ on:
     branches:
       - main
       - dev
-
 jobs:
   ci:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,6 +36,22 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v5
         with:
-          push: true          
+          push: true
           tags: henria/weather_app_backend:${{ github.sha }}
-          
+
+      - name: Update image tag in gitops-application
+        if: github.ref == 'refs/heads/main'
+        env:
+          GITOPS_PAT: ${{ secrets.GITOPS_PAT }}
+        run: |
+          git clone https://x-access-token:${GITOPS_PAT}@github.com/henria/gitops-application.git
+          cd gitops-application
+
+          # Bump the image tag in values-dev.yaml
+          sed -i "s|tag: .*|tag: \"${{ github.sha }}\"|" charts/weather-backend/values-dev.yaml
+
+          git config user.email "ci@github.com"
+          git config user.name "GitHub Actions"
+          git add charts/weather-backend/values-dev.yaml
+          git commit -m "chore: bump weather-backend to ${{ github.sha }}"
+          git push
